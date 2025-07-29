@@ -1,11 +1,23 @@
-import { Button } from "./components/ui/button";
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
+import Home from "./pages/Home";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/">
+      <Route index element={<Home />} />
+    </Route>
+  )
+);
 
 function App() {
   return (
     <>
-      <div className="flex flex-wrap items-center gap-2 md:flex-row">
-        <Button>Button</Button>
-      </div>
+      <RouterProvider router={router} />
     </>
   );
 }
