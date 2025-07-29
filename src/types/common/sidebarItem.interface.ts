@@ -5,3 +5,8 @@ export interface ISidebarItem {
   url: string;
   icon?: LucideIcon;
 }
+
+export interface GroupedSidebarItem {
+  title: string;
+  items: ISidebarItem[];
+}

@@ -4,41 +4,57 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import type { ISidebarItem } from "@/types/common/sidebarItem.interface";
+import type { GroupedSidebarItem } from "@/types/common/sidebarItem.interface";
 
 interface AppSidebarProps {
-  items?: ISidebarItem[];
+  itemGroups?: GroupedSidebarItem[];
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
-export function AppSidebar({ items = [] }: AppSidebarProps) {
+export function AppSidebar({
+  itemGroups = [],
+  header,
+  footer,
+}: AppSidebarProps) {
   return (
     <Sidebar>
-      <SidebarHeader />
+      {header && <SidebarHeader>{header}</SidebarHeader>}
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      {item.icon && <item.icon />}
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup />
+        {itemGroups.map((group, i) => (
+          <SidebarGroup
+            className={`${i !== 0 ? "mt-4" : ""}`}
+            key={group.title + "-" + i}
+          >
+            <SidebarGroupContent>
+              {group.title && (
+                <SidebarGroupLabel>
+                  <h6 className="text-md">{group.title}</h6>
+                </SidebarGroupLabel>
+              )}
+              <SidebarMenu>
+                {group.items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <a href={item.url}>
+                        {item.icon && <item.icon />}
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
-      <SidebarFooter />
+      {footer && <SidebarFooter>{footer}</SidebarFooter>}
     </Sidebar>
   );
 }
