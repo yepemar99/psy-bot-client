@@ -1,10 +1,11 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import Footer from "@/components/footer-sidebar";
-import Header from "@/components/header-sidebar";
+import Header from "@/components/header";
+import { default as SidebarHeader } from "@/components/header-sidebar";
 import { Separator } from "@/components/ui/separator";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import type { GroupedSidebarItem } from "@/types/common/sidebarItem.interface";
-import { Search, SquarePen } from "lucide-react";
+import { SquarePen } from "lucide-react";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ const Layout1 = ({ children }: LayoutProps) => {
   return (
     <SidebarProvider>
       <AppSidebar
-        header={<Header />}
+        header={<SidebarHeader />}
         itemGroups={navItems}
         footer={
           <div>
@@ -23,9 +24,10 @@ const Layout1 = ({ children }: LayoutProps) => {
           </div>
         }
       />
-      <main>
-        <SidebarTrigger />
-        {children}
+      <main className="w-full">
+        <Header />
+        <Separator />
+        <div className="w-full mt-2">{children}</div>
       </main>
     </SidebarProvider>
   );
@@ -41,11 +43,6 @@ const navItems: GroupedSidebarItem[] = [
         title: "Nuevo chat",
         url: "#",
         icon: SquarePen,
-      },
-      {
-        title: "Buscar chats",
-        url: "#",
-        icon: Search,
       },
     ],
   },
