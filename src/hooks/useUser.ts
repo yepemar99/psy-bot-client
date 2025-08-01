@@ -52,7 +52,7 @@ export function useUser(): UseUserReturn {
     setLoading(true);
     try {
       const response = await authService.login(email, password);
-      if (response?.user && response?.token) {
+      if (response?.token) {
         localStorage.setItem("token", response.token);
       }
       mutate();
