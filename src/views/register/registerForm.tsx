@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,11 +11,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@/hooks/useUser";
 
 // Validación con zod
 const RegisterSchema = z.object({
   username: z.string().min(2, {
     message: "El nombre debe tener al menos 2 caracteres.",
+  }),
+  lastname: z.string().min(2, {
+    message: "El apellido debe tener al menos 2 caracteres.",
   }),
   email: z.string().email({
     message: "Correo electrónico inválido.",
@@ -29,24 +32,19 @@ const RegisterSchema = z.object({
 type RegisterData = z.infer<typeof RegisterSchema>;
 
 const RegisterForm = () => {
+  const { register } = useUser();
   const form = useForm<RegisterData>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       username: "",
+      lastname: "",
       email: "",
       password: "",
     },
   });
 
   const onSubmit = (data: RegisterData) => {
-    console.log("data", data);
-    toast("Datos enviados con éxito", {
-      description: (
-        <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    register(data.email, data.password, data.username, data.lastname);
   };
 
   return (
@@ -61,6 +59,21 @@ const RegisterForm = () => {
               <FormLabel>Nombre</FormLabel>
               <FormControl>
                 <Input placeholder="Nombre" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Apellido */}
+        <FormField
+          control={form.control}
+          name="lastname"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Apellidos</FormLabel>
+              <FormControl>
+                <Input placeholder="Apellidos" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,8 +11,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@/hooks/useUser";
 
-// Validación con zod solo email y password
 const LoginSchema = z.object({
   email: z.string().email({
     message: "Correo electrónico inválido.",
@@ -26,6 +25,7 @@ const LoginSchema = z.object({
 type LoginData = z.infer<typeof LoginSchema>;
 
 const LoginForm = () => {
+  const { login } = useUser();
   const form = useForm<LoginData>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -34,15 +34,8 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data: LoginData) => {
-    console.log("Login data", data);
-    toast("Inicio de sesión exitoso", {
-      description: (
-        <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  const onSubmit = async (data: LoginData) => {
+    await login({ email: data.email, password: data.password });
   };
 
   return (
