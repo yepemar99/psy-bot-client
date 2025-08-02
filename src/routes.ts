@@ -9,5 +9,6 @@ export const routes = {
     me: "/api/auth/me",
     login: "/api/auth/login",
     register: "/api/auth/register",
+    chats: "/api/chats",
   },
 };
