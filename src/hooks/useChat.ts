@@ -20,13 +20,14 @@ const useChat = (chatId = "") => {
       return;
     }
     try {
-      const response = await messageService.send(user.id, message);
+      const response = await messageService.send(user.id, chatId, message);
       mutate();
       if (!chatId && response.chatId) {
         navigate(routes.chat + "/" + response.chatId);
       }
     } catch (error) {
       console.error("Error sending message:", error);
+      toast.error("Error al enviar el mensaje");
       throw error;
     } finally {
       setLoading(false);

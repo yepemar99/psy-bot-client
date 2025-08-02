@@ -4,6 +4,7 @@ import { BaseService } from "./service";
 class MessageService extends BaseService {
   async send(
     userId = "",
+    chatId = "",
     message = ""
   ): Promise<{
     botResponse: string;
@@ -16,6 +17,7 @@ class MessageService extends BaseService {
       chat_id: string;
     }>(routes.api.message, {
       user_id: userId,
+      chat_id: chatId,
       content: message,
     });
     return {

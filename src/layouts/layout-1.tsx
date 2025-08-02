@@ -13,12 +13,9 @@ import type {
 } from "@/types/common/sidebarItem.interface";
 import { SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout1 = ({ children }: LayoutProps) => {
+const Layout1 = () => {
   const { user } = useUser();
   const { data: chats } = usePaginationChats({ userId: user?.id || "" });
   const [dynamicNavs, setDynamicsChats] = useState<ISidebarItem[]>([]);
@@ -52,7 +49,9 @@ const Layout1 = ({ children }: LayoutProps) => {
       <main className="w-full">
         <Header />
         <Separator />
-        <div className="w-full mt-2">{children}</div>
+        <div className="w-full mt-2">
+          <Outlet />
+        </div>
       </main>
     </SidebarProvider>
   );

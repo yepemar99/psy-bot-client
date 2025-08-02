@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import type { GroupedSidebarItem } from "@/types/common/sidebarItem.interface";
+import { Link } from "react-router-dom";
 
 interface AppSidebarProps {
   itemGroups?: GroupedSidebarItem[];
@@ -42,10 +43,10 @@ export function AppSidebar({
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
+                      <Link to={item.url}>
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
