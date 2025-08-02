@@ -3,6 +3,7 @@ export const routes = {
     login: "/login",
     register: "/register",
   },
+  chat: "/chat",
   home: "/",
   notFound: "*",
   api: {
@@ -10,5 +11,6 @@ export const routes = {
     login: "/api/auth/login",
     register: "/api/auth/register",
     chats: "/api/chats",
+    message: "/api/messages",
   },
 };

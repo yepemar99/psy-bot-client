@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import useGetMe from "@/hooks/swr/useGetme";
 
 interface PrivateRouteProps {
+  isChat?: boolean;
   children: React.ReactNode;
 }
 

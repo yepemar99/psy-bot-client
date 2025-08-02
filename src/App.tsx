@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import Chat from "./views/home/home";
+import Chat from "./views/home/chat";
 import Register from "./views/register/register";
 import Login from "./views/login/login";
 import PrivateRoute from "./components/privateRoute";
@@ -20,13 +20,20 @@ const router = createBrowserRouter(
           </PrivateRoute>
         }
       />
+      <Route
+        path="chat/:id"
+        element={
+          <PrivateRoute isChat>
+            <Chat />
+          </PrivateRoute>
+        }
+      />
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
       <Route path="*" element={<div>404 Not Found</div>} />
     </Route>
   )
 );
-
 function App() {
   return (
     <>
