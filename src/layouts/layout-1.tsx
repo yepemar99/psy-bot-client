@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import usePaginationChats from "@/hooks/usePaginationChats";
 import { useUser } from "@/hooks/useUser";
+import { routes } from "@/routes";
 import type {
   GroupedSidebarItem,
   ISidebarItem,
@@ -65,7 +66,7 @@ const navItems: GroupedSidebarItem[] = [
     items: [
       {
         title: "Nuevo chat",
-        url: "#",
+        url: routes.home,
         icon: SquarePen,
       },
     ],

@@ -24,7 +24,6 @@ const Footer = () => {
   );
 
   const handleLogout = async () => {
-    console.log("Cerrar sesión");
     await logout();
   };
 
